@@ -8,8 +8,30 @@ package fundamentals;
  * if desired (though strict equality is easier to start).
  * </p>
  *
- * @param text The string to check.
  * @return true if the string is a palindrome, false otherwise.
  */
 public class StringPalindromeChecker {
+    static boolean palindromeCheck(String text) {
+
+        char[] cleanText = text.replaceAll("\\s+", "").toCharArray();
+
+        int start = 0;
+        int end = cleanText.length - 1;
+
+        while (start < end) {
+            if (cleanText[start] != cleanText[end]) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+
+    public static void main (String[] args) {
+        String text = "never odd or even";
+        System.out.println(palindromeCheck(text));
+    }
 }
