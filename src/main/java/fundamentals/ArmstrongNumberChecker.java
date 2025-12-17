@@ -12,34 +12,57 @@ package fundamentals;
  */
 public class ArmstrongNumberChecker {
 
-    public static boolean isAmstrong (int number) {
+//    public static boolean isArmstrong (int number) {
+//
+//        int[] digits = intToArr(number);
+//
+//        int pow = digits.length;
+//        int result = 0;
+//
+//        for (int digit: digits) {
+//            result = result + (int) Math.pow(digit, pow);
+//
+//        }
+//
+//        return number == result;
+//    }
 
-        int[] digits = intToArr(number);
 
-        int pow = digits.length;
-        int result = 0;
+    // alternative approach
+    // Space Complexity: O(1) (No strings or arrays used)
+    public static boolean isArmstrong(int number) {
 
-        for (int digit: digits) {
-            result = result + (int) Math.pow(digit, pow);
+        if (number < 0) return false;
 
+        int numberOfDigits = countDigits(number);
+
+        int temp = number;
+        int sum = 0;
+
+        while (temp > 0) {
+            int lastDigit = temp % 10;
+
+            sum += (int) Math.pow(lastDigit, numberOfDigits);
+            temp = temp / 10;
         }
 
-        return number == result;
+        return sum == number;
     }
 
-    static int[] intToArr (int numbers) {
-        String temp = String.valueOf(numbers);
-        int[] digits = new int[temp.length()];
+    private static int countDigits(int n) {
+        if (n == 0) return 1;
 
-        for (int i =0; i < temp.length(); i++) {
-            digits[i] = Character.getNumericValue(temp.charAt(i));
+        int count = 0;
+        while (n > 0) {
+            n = n / 10;
+            count++;
         }
-        return digits;
+        return count;
     }
 
     public static void main (String[] args) {
         int numbers = 153;
 
-        System.out.println(isAmstrong(numbers));
+        System.out.println(isArmstrong(numbers));
     }
 }
